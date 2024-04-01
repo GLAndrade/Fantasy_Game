@@ -1,0 +1,125 @@
+[gd_scene load_steps=20 format=3 uid="uid://cf7gs1bewvwfh"]
+
+[ext_resource type="Script" path="res://Character/player.gd" id="1_arkyg"]
+[ext_resource type="Texture2D" uid="uid://cfggwp3rfadku" path="res://Personagemsprite/Idle/Frame 1.png" id="2_546sv"]
+[ext_resource type="Texture2D" uid="uid://d4jr5t5bcn0jh" path="res://Attack/Frame 1.png" id="2_q41cg"]
+[ext_resource type="Texture2D" uid="uid://d27p8cyjhaf1l" path="res://Personagemsprite/Idle/Frame 2.png" id="3_6mh8t"]
+[ext_resource type="Texture2D" uid="uid://djlmefbq6fl2f" path="res://Attack/Frame 2.png" id="3_rul4h"]
+[ext_resource type="Texture2D" uid="uid://cj3olvxq7efqm" path="res://Personagemsprite/Idle/Frame 3.png" id="4_7wi7o"]
+[ext_resource type="Texture2D" uid="uid://n37njhicj84k" path="res://Attack/Frame 3.png" id="4_im4hj"]
+[ext_resource type="Texture2D" uid="uid://0es4gmofxsnp" path="res://Personagemsprite/Idle/Frame 4.png" id="5_ii4lk"]
+[ext_resource type="Texture2D" uid="uid://dyc432wq65epy" path="res://Attack/Frame 4.png" id="5_t7clg"]
+[ext_resource type="Texture2D" uid="uid://cw50a62rvvl31" path="res://Personagemsprite/Idle/Frame 5.png" id="6_rvo20"]
+[ext_resource type="Texture2D" uid="uid://crlvo1ldbg4ex" path="res://Personagemsprite/Jump/Frame 2.png" id="7_t4l7w"]
+[ext_resource type="Texture2D" uid="uid://c8krsoscfrel2" path="res://Personagemsprite/Jump/Frame 1.png" id="8_vhbk4"]
+[ext_resource type="Texture2D" uid="uid://bgg8g6n1mg5hk" path="res://Personagemsprite/walk/Frame 1.png" id="10_r2kqo"]
+[ext_resource type="Texture2D" uid="uid://cr8vsx8t5qalx" path="res://Personagemsprite/walk/Frame 2.png" id="11_mxss5"]
+[ext_resource type="Texture2D" uid="uid://cpg5rkunvg5kl" path="res://Personagemsprite/walk/Frame 3.png" id="12_33btk"]
+[ext_resource type="Texture2D" uid="uid://cobjv0n2tob2h" path="res://Personagemsprite/walk/Frame 4.png" id="13_nbyje"]
+[ext_resource type="Texture2D" uid="uid://o51xirlj2n7c" path="res://Personagemsprite/walk/Frame 5.png" id="14_cwgnd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_drqry"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8xly2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_q41cg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rul4h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_im4hj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_t7clg")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_546sv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6mh8t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7wi7o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ii4lk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rvo20")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_vhbk4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t4l7w")
+}],
+"loop": true,
+"name": &"jump_double",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_t4l7w")
+}],
+"loop": false,
+"name": &"jump_end",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_vhbk4")
+}],
+"loop": false,
+"name": &"jump_start",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_r2kqo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_mxss5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_33btk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_nbyje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_cwgnd")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_arkyg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.88, 1)
+shape = SubResource("CapsuleShape2D_drqry")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, 1)
+sprite_frames = SubResource("SpriteFrames_8xly2")
+animation = &"idle"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
